@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 18/10/2025 às 22:42
+-- Tempo de geração: 19/10/2025 às 21:25
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -541,6 +541,7 @@ DELIMITER ;
 CREATE TABLE `pedidos` (
   `cod_pedido` int(11) NOT NULL,
   `cod_cliente` int(11) NOT NULL,
+  `data_pedido` datetime DEFAULT current_timestamp(),
   `valor_total` double NOT NULL DEFAULT 0,
   `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0 - em andamento; 1 - finalizado'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -549,13 +550,13 @@ CREATE TABLE `pedidos` (
 -- Despejando dados para a tabela `pedidos`
 --
 
-INSERT INTO `pedidos` (`cod_pedido`, `cod_cliente`, `valor_total`, `status`) VALUES
-(1, 1, 60, 1),
-(2, 2, 25, 0),
-(3, 3, 47, 1),
-(4, 4, 35, 1),
-(5, 5, 12, 0),
-(6, 2, 56, 0);
+INSERT INTO `pedidos` (`cod_pedido`, `cod_cliente`, `data_pedido`, `valor_total`, `status`) VALUES
+(1, 1, '2025-10-19 16:17:23', 60, 1),
+(2, 2, '2025-10-19 16:17:23', 25, 0),
+(3, 3, '2025-10-19 16:17:23', 47, 1),
+(4, 4, '2025-10-19 16:17:23', 35, 1),
+(5, 5, '2025-10-19 16:17:23', 12, 0),
+(6, 2, '2025-10-19 16:17:23', 56, 0);
 
 -- --------------------------------------------------------
 
