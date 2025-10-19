@@ -8,7 +8,9 @@
 <body>
     <header class="header">
         <h1>Lista de Clientes</h1>
-        <button class="btn-add">+ Novo Cliente</button>
+        <button class="btn-add" onclick="window.location.href='{{ route('clientes.create') }}'">
+            + Novo Cliente
+        </button>
     </header>
 
     <main class="container">

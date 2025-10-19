@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cliente;
+use Illuminate\Http\Request;
 
 class ClienteController extends Controller
 {
@@ -30,4 +31,27 @@ class ClienteController extends Controller
 
         return view('clientes.detalhes', compact('cliente', 'pedidos'));
     }
+
+     public function create()
+    {
+        return view('clientes.create');
+    }
+
+    public function store(Request $request)
+    {
+        $dados = [
+            'nome' => $request->input('nome'),
+            'telefone' => $request->input('telefone'),
+            'cpf' => $request->input('cpf'),
+            'rg' => $request->input('rg'),
+            'endereco' => $request->input('endereco'),
+            'email' => $request->input('email'),
+        ];
+
+        $this->cliente->inserir($dados);
+
+        return redirect()->route('clientes.index')->with('success', 'Cliente cadastrado com sucesso!');
+    }
+
+    
 }

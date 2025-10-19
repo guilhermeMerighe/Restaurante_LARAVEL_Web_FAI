@@ -37,4 +37,18 @@ class Cliente
         ";
         return $this->db->query($sql, [$id]);
     }
+
+    public function inserir(array $dados)
+{
+    $sql = "INSERT INTO clientes (nome, telefone, cpf, rg, endereco, email)
+            VALUES (?, ?, ?, ?, ?, ?)";
+    return $this->db->query($sql, [
+        $dados['nome'],
+        $dados['telefone'],
+        $dados['cpf'],
+        $dados['rg'],
+        $dados['endereco'],
+        $dados['email']
+    ]);
+}
 }
