@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\ItemPedidoController;
+use App\Http\Controllers\IngredienteController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -27,4 +28,10 @@ Route::get('/pedidos/{cod_pedido}/itens', [ItemPedidoController::class, 'listar'
 Route::post('/pedidos/{cod_pedido}/itens/adicionar', [ItemPedidoController::class, 'adicionar']);
 Route::post('/pedidos/{cod_pedido}/itens/{cod_prato}/atualizar', [ItemPedidoController::class, 'atualizar']);
 Route::post('/pedidos/{cod_pedido}/itens/{cod_prato}/excluir', [ItemPedidoController::class, 'excluir']);
+
+Route::get('/ingredientes', [IngredienteController::class, 'index'])->name('ingredientes.index');
+Route::get('/ingredientes/novo', [IngredienteController::class, 'create'])->name('ingredientes.create');
+Route::post('/ingredientes', [IngredienteController::class, 'store'])->name('ingredientes.store');
+Route::post('/ingredientes/{cod_ingrediente}/adicionar', [IngredienteController::class, 'adicionarEstoque'])->name('ingredientes.adicionar');
+Route::post('/ingredientes/{cod_ingrediente}/excluir', [IngredienteController::class, 'destroy'])->name('ingredientes.destroy');
 
