@@ -23,8 +23,12 @@ class ItemPedidoController extends Controller
         $pedidoModel = new Pedido();
         $valor_total = $pedidoModel->get_valor_total($cod_pedido);
 
-        return view('itens.index', compact('itens', 'cod_pedido', 'valor_total'));
+        // Pega o status do pedido
+        $status = $pedidoModel->getStatus($cod_pedido);
+
+        return view('itens.index', compact('itens', 'cod_pedido', 'valor_total', 'status'));
     }
+
 
     public function adicionar(Request $request, $cod_pedido)
     {

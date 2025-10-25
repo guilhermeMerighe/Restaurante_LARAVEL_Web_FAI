@@ -15,7 +15,7 @@ class Conexao
 
     private $pdo;
     private $stmt;
-
+    
     public function __construct()
     {
         $dsn = "mysql:host={$this->host};dbname={$this->db};charset={$this->charset}";

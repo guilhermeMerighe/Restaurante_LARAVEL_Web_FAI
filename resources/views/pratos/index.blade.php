@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Clientes</title>
+    <title>Pratos</title>
     <link rel="stylesheet" href="{{ asset('css/style_novo.css') }}">
     <style>
         header.header {
@@ -41,27 +41,23 @@
         .btn-voltar:hover {
             background-color: #ddd;
         }
-        .tabela-clientes {
+        .tabela-pratos {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
         }
-        /* header da tabela igual pratos */
-        .tabela-clientes th {
-            background-color: #f0f0f0;
-            color: #000;
+        .tabela-pratos th, .tabela-pratos td {
             padding: 12px 8px;
+            font-size: 16px;
             text-align: left;
         }
-        .tabela-clientes td {
-            padding: 10px;
-            border-bottom: 1px solid #eaeaea;
+        .tabela-pratos th {
+            background-color: #f0f0f0;
         }
-        .acoes-clientes {
+        .acoes-pratos {
             display: flex;
             gap: 10px;
         }
-        .btn-detalhes {
+        .btn-editar {
             padding: 6px 12px;
             background-color: #3498db;
             color: white;
@@ -70,38 +66,57 @@
             cursor: pointer;
             text-decoration: none;
         }
+        .btn-excluir {
+            padding: 6px 12px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .text-success {
+            color: #2ecc71;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
     </style>
 </head>
 <body>
     <header class="header">
-        <h1>Clientes</h1>
+        <h1>Pratos</h1>
         <a href="{{ url('/') }}" class="btn-voltar">Voltar</a>
     </header>
 
     <main class="container">
-        <a href="{{ route('clientes.create') }}" class="btn-novo">+ Novo Cliente</a>
+        <a href="{{ url('/pratos/novo') }}" class="btn-novo">+ Novo Prato</a>
 
-        <table class="tabela-clientes">
+        @if(session('success'))
+            <p class="text-success">{{ session('success') }}</p>
+        @endif
+
+        <table class="tabela-pratos">
             <thead>
                 <tr>
                     <th>Código</th>
-                    <th>Nome</th>
-                    <th>Telefone</th>
-                    <th>Email</th>
+                    <th>Descrição</th>
+                    <th>Valor (R$)</th>
                     <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($clientes as $c)
-                    <tr>
-                        <td>{{ $c['cod_cliente'] }}</td>
-                        <td>{{ $c['nome'] }}</td>
-                        <td>{{ $c['telefone'] }}</td>
-                        <td>{{ $c['email'] }}</td>
-                        <td class="acoes-clientes">
-                            <a href="{{ route('clientes.detalhes', $c['cod_cliente']) }}" class="btn-detalhes">Detalhes</a>
-                        </td>
-                    </tr>
+                @foreach($pratos as $p)
+                <tr>
+                    <td>{{ $p['cod_prato'] }}</td>
+                    <td>{{ $p['descricao'] }}</td>
+                    <td>{{ number_format($p['valor_unitario'], 2, ',', '.') }}</td>
+                    <td class="acoes-pratos">
+                        <a href="{{ url('/pratos/editar/'.$p['cod_prato']) }}" class="btn-editar">Editar</a>
+                        <form action="{{ url('/pratos/deletar/'.$p['cod_prato']) }}" method="POST" style="display:inline;">
+                            @csrf
+                            <button type="submit" class="btn-excluir" onclick="return confirm('Excluir prato?')">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
                 @endforeach
             </tbody>
         </table>

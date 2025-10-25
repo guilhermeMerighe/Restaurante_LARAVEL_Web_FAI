@@ -6,10 +6,12 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\ItemPedidoController;
 use App\Http\Controllers\IngredienteController;
+use App\Http\Controllers\PratoController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
+
 
 
 Route::get('/clientes', [ClienteController::class, 'index'])->name('clientes.index');
@@ -34,4 +36,11 @@ Route::get('/ingredientes/novo', [IngredienteController::class, 'create'])->name
 Route::post('/ingredientes', [IngredienteController::class, 'store'])->name('ingredientes.store');
 Route::post('/ingredientes/{cod_ingrediente}/adicionar', [IngredienteController::class, 'adicionarEstoque'])->name('ingredientes.adicionar');
 Route::post('/ingredientes/{cod_ingrediente}/excluir', [IngredienteController::class, 'destroy'])->name('ingredientes.destroy');
+
+Route::get('/pratos', [PratoController::class, 'index']);
+Route::get('/pratos/novo', [PratoController::class, 'create']);
+Route::post('/pratos', [PratoController::class, 'store']);
+Route::get('/pratos/editar/{id}', [PratoController::class, 'edit']);
+Route::post('/pratos/{id}', [PratoController::class, 'update']);
+Route::post('/pratos/deletar/{id}', [PratoController::class, 'destroy']);
 

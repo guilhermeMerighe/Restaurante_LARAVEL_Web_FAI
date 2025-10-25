@@ -29,7 +29,18 @@ class PedidoController extends Controller
 
     public function finalizar($cod_pedido)
     {
-        $this->pedido->finalizar($cod_pedido);
-        return redirect('/pedidos')->with('success', 'Pedido finalizado!');
+        try {
+            $this->pedido->finalizar($cod_pedido);
+            if(request()->wantsJson()){
+                return response()->json(['success' => 'Pedido finalizado!']);
+            }
+            return redirect("/pedidos/{$cod_pedido}/itens")->with('success', 'Pedido finalizado!');
+        } catch (\Exception $e) {
+            $msg = $e->getMessage();
+            if(request()->wantsJson()){
+                return response()->json(['error' => $msg], 500);
+            }
+            return redirect("/pedidos/{$cod_pedido}/itens")->with('error', $msg);
+        }
     }
 }

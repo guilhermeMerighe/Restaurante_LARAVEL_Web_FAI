@@ -45,4 +45,11 @@ class Pedido
         $res = $this->conexao->query($sql, [$codPedido]);
         return $res[0] ?? null;
     }
+
+    public function getStatus($codPedido)
+    {
+        $pedido = $this->buscar($codPedido); // usa o método já existente
+        return $pedido['status'] ?? null;    // retorna o status ou null se não existir
+    }
+
 }
